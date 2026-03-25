@@ -1,7 +1,5 @@
 # API de Clima - Proyecto Integrador
 
-[![CI Pipeline Status](https://github.com/BJD23/API_Weather/actions/workflows/ci.yml/badge.svg)](https://github.com/BJD23/API_Weather/actions)
-
 ## Descripción del Proyecto
 Esta es una API RESTful desarrollada como proyecto integrador para la experiencia educativa de Despliegue de Software (LIS 601). La API consume datos en tiempo real desde **OpenWeatherMap** permite a los usuarios consultar el clima, además de guardar sus ubicaciones favoritas en una base de datos **MySQL**.
 
@@ -58,9 +56,9 @@ La API estará disponible en `http://localhost:8000`.
 
 ## Equipo de Trabajo
  
-* **[Carlos Sebastian Cazarin Legy]** - Backend Developer & API Lead  
-* **[Héctor Favio Jiménez Ramos]** - DBA & DevOps Engineer  
-* **[Roberto Carlos Beltrán Guevara]** - QA Engineer & Technical Writer  
+* **[Carlos Sebastian Cazarin Legy]** - Backend Developer & API Lead  | zs23028293@estudiantes.uv.mx
+* **[Héctor Favio Jiménez Ramos]** - DBA & DevOps Engineer  | zs23021812@estudiantes.uv.mx 
+* **[Roberto Carlos Beltrán Guevara]** - QA Engineer & Technical Writer  | zs23017354@estudiantes.uv.mx 
 
 ---
 **Universidad Veracruzana** | Licenciatura en Ingeniería de Software 
