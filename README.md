@@ -1,5 +1,7 @@
 # API de Clima - Proyecto Integrador
 
+[![CI Pipeline Status](https://github.com/BJD23/API_Weather/actions/workflows/ci.yml/badge.svg)](https://github.com/BJD23/API_Weather/actions)
+
 ## Descripción del Proyecto
 Esta es una API RESTful desarrollada como proyecto integrador para la experiencia educativa de Despliegue de Software (LIS 601). La API consume datos en tiempo real desde **OpenWeatherMap** permite a los usuarios consultar el clima, además de guardar sus ubicaciones favoritas en una base de datos **MySQL**.
 
