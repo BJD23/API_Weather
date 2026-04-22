@@ -14,7 +14,7 @@ Todo el proyecto está contenedorizado con Docker y cuenta con un pipeline de In
 * **CI/CD:** GitHub Actions.
 * **API Externa:** OpenWeatherMap.
 
-![Diagrama de arquitectura](media\Diagrama.png)
+![Diagrama de arquitectura](media/Diagrama.png)
 
 ## Endpoints Planeados
 Nuestra API contará con los siguientes endpoints principales:
