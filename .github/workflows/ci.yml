@@ -31,7 +31,7 @@ jobs:
         OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       run: |
-        pytest
+        python -m pytest
 
     - name: Construir imagen Docker
       run: docker build -t api-clima-extendido .
