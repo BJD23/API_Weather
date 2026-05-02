@@ -1,0 +1,54 @@
+name: CI Pipeline API Clima
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "develop", "main" ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    
+    # Levantamos un MySQL de prueba dentro de GitHub Actions
+    services:
+      db:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: weather_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -uroot -prootpassword"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v4
+
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest httpx
+        pip install -r requirements.txt
+
+    - name: Ejecutar pruebas con Pytest
+      env:
+        WEATHER_API_KEY: "dummy_key_for_tests"
+        DB_HOST: "127.0.0.1"
+        DB_USER: "root"
+        DB_PASSWORD: "rootpassword"
+        DB_NAME: "weather_db"
+      run: |
+        python -m pytest
+
+    - name: Construir imagen Docker
+      run: docker build -t api-clima-extendido .
