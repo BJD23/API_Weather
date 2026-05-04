@@ -16,6 +16,10 @@ Todo el proyecto está contenedorizado con Docker y cuenta con un pipeline de In
 
 ![Diagrama de arquitectura](media/Diagrama.png)
 
+## Diagrama de Base de Datos
+
+![Diagrama de Base de Datos](media/Diagrama_BD.png)
+
 ## Endpoints Planeados
 Nuestra API contará con los siguientes endpoints principales:
 
