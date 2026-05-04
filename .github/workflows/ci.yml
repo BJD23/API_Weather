@@ -9,6 +9,21 @@ on:
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
+    
+    # Levantamos un MySQL de prueba dentro de GitHub Actions
+    services:
+      db:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: weather_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -uroot -prootpassword"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
     - name: Checkout del código
@@ -23,13 +38,15 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pytest httpx
-        # Instalar requerimientos del proyecto
         pip install -r requirements.txt
 
     - name: Ejecutar pruebas con Pytest
       env:
-        OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        WEATHER_API_KEY: "dummy_key_for_tests"
+        DB_HOST: "127.0.0.1"
+        DB_USER: "root"
+        DB_PASSWORD: "rootpassword"
+        DB_NAME: "weather_db"
       run: |
         python -m pytest
 
