@@ -20,7 +20,7 @@ Todo el proyecto está contenedorizado con Docker y cuenta con un pipeline de In
 Nuestra API contará con los siguientes endpoints principales:
 
 **Gestión de Usuarios**
-* `POST /usuarios`: Registra un nuevo usuario en la base de datos.
+* ✅ `POST /usuarios`: Registra un nuevo usuario en la base de datos.
 * `GET /usuarios/{id_usuario}`: Obtiene el perfil de un usuario específico.
 
 **Gestión de Clima**
