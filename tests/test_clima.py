@@ -57,3 +57,21 @@ def test_get_clima_request_error(mock_get):
     response = client.get("/clima/Xalapa")
     assert response.status_code == 500
     assert "Error al contactar el servicio de clima" in response.json()["detail"]
+
+from src.config import settings
+
+@pytest.mark.skipif(
+    settings.WEATHER_API_KEY == "dummy_key_for_tests" or not settings.WEATHER_API_KEY, 
+    reason="No se tiene una API Key real configurada, omitiendo prueba de integración"
+)
+def test_get_clima_integration_real_api():
+    
+    response = client.get("/clima/London")
+    assert response.status_code == 200
+    
+    data = response.json()
+    assert "ciudad" in data
+    assert "temperatura" in data
+    assert "descripcion" in data
+    assert "humedad" in data
+    assert data["ciudad"] == "London"
