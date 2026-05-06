@@ -33,7 +33,7 @@ Nuestra API contará con los siguientes endpoints principales:
 * `GET /clima/pronostico/{ciudad}`: Obtiene el pronóstico del clima de los próximos 5 días para una ciudad.
 
 **Gestión de Favoritos**
-* `POST /favoritos`: Guarda una nueva ubicación favorita en la base de datos para un usuario.
+* ✅ `POST /favoritos`: Guarda una nueva ubicación favorita en la base de datos para un usuario.
 * `GET /favoritos/{id_usuario}`: Recupera la lista de ciudades favoritas de un usuario.
 * `DELETE /favoritos/{id_ciudad}`: Elimina una ciudad de la lista de favoritos.
 * `GET /clima/favoritos/{id_usuario}`: Obtiene el clima actual de todas las ciudades favoritas de un usuario en una sola petición.

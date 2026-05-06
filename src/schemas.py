@@ -9,9 +9,11 @@ class UnidadMedidaEnum(str, Enum):
 
 class UbicacionFavoritaBase(BaseModel):
     ciudad: str
+    lat: float
+    lon: float
 
 class UbicacionFavoritaCreate(UbicacionFavoritaBase):
-    pass
+    usuario_id: int
 
 class UbicacionFavorita(UbicacionFavoritaBase):
     id: int

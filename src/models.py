@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey, Boolean, Enum
+from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey, Boolean, Enum, DECIMAL
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from src.database import Base
@@ -22,5 +22,7 @@ class UbicacionFavorita(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     usuario_id = Column(Integer, ForeignKey("usuarios.id"))
     ciudad = Column(String(100), nullable=False)
+    lat = Column(DECIMAL(10, 8), nullable=False)
+    lon = Column(DECIMAL(11, 8), nullable=False)
 
     usuario = relationship("Usuario", back_populates="ubicaciones")
