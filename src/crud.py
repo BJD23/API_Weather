@@ -15,3 +15,6 @@ def create_usuario(db: Session, usuario: schemas.UsuarioCreate):
     db.commit()
     db.refresh(db_usuario)
     return db_usuario
+
+def get_usuario(db: Session, usuario_id: int):
+    return db.query(models.Usuario).filter(models.Usuario.id == usuario_id).first()

@@ -22,6 +22,13 @@ def create_usuario(usuario: schemas.UsuarioCreate, db: Session = Depends(get_db)
         raise HTTPException(status_code=400, detail="El correo electrónico ya está registrado")
     return crud.create_usuario(db=db, usuario=usuario)
 
+@app.get("/usuarios/{id_usuario}", response_model=schemas.Usuario, tags=["Gestión de Usuarios"])
+def get_usuario(id_usuario: int, db: Session = Depends(get_db)):
+    db_usuario = crud.get_usuario(db, usuario_id=id_usuario)
+    if db_usuario is None:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    return db_usuario
+
 @app.get("/health", tags=["Sistema"])
 def check_health():
     return {"status": "ok", "message": "La API está funcionando correctamente"}
