@@ -54,3 +54,24 @@ def test_create_usuario_invalid_email():
         json={"nombre": "Invalid Email", "email": "invalid_email_format", "unidad_medida": "metric", "activo": True}
     )
     assert response.status_code == 422 # Error de validación de Pydantic
+
+def test_get_usuario():
+    # Primero crear un usuario para asegurarnos de que exista
+    response = client.post(
+        "/usuarios",
+        json={"nombre": "Test Get", "email": "test_get@example.com", "unidad_medida": "metric", "activo": True}
+    )
+    assert response.status_code == 201
+    user_id = response.json()["id"]
+    
+    response = client.get(f"/usuarios/{user_id}")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["id"] == user_id
+    assert data["nombre"] == "Test Get"
+    assert data["email"] == "test_get@example.com"
+
+def test_get_usuario_not_found():
+    response = client.get("/usuarios/9999")
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Usuario no encontrado"
