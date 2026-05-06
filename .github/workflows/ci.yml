@@ -15,12 +15,12 @@ jobs:
       db:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: rootpassword
           MYSQL_DATABASE: weather_db
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h localhost -uroot -p${{ secrets.DB_PASSWORD }}"
+          --health-cmd="mysqladmin ping -h localhost -uroot -prootpassword"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -45,7 +45,7 @@ jobs:
         WEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
         DB_HOST: "127.0.0.1"
         DB_USER: "root"
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_PASSWORD: "rootpassword"
         DB_NAME: "weather_db"
       run: |
         python -m pytest
