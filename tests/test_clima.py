@@ -38,3 +38,22 @@ def test_get_clima_not_found(mock_get):
     response = client.get("/clima/CiudadInexistente")
     assert response.status_code == 404
     assert "no encontrada" in response.json()["detail"]
+
+@patch("src.services.weather.httpx.AsyncClient.get")
+def test_get_clima_unauthorized(mock_get):
+    mock_response = MagicMock()
+    mock_response.status_code = 401
+    mock_get.return_value = mock_response
+
+    response = client.get("/clima/Xalapa")
+    assert response.status_code == 500
+    assert "Error de autenticación con el servicio de clima" in response.json()["detail"]
+
+@patch("src.services.weather.httpx.AsyncClient.get")
+def test_get_clima_request_error(mock_get):
+    import httpx
+    mock_get.side_effect = httpx.RequestError("Network error", request=MagicMock())
+
+    response = client.get("/clima/Xalapa")
+    assert response.status_code == 500
+    assert "Error al contactar el servicio de clima" in response.json()["detail"]
