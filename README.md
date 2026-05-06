@@ -25,10 +25,10 @@ Nuestra API contará con los siguientes endpoints principales:
 
 **Gestión de Usuarios**
 * ✅ `POST /usuarios`: Registra un nuevo usuario en la base de datos.
-* `GET /usuarios/{id_usuario}`: Obtiene el perfil de un usuario específico.
+* ✅ `GET /usuarios/{id_usuario}`: Obtiene el perfil de un usuario específico.
 
 **Gestión de Clima**
-* `GET /clima/{ciudad}`: Obtiene el clima actual de una ciudad por nombre.
+* ✅ `GET /clima/{ciudad}`: Obtiene el clima actual de una ciudad por nombre.
 * `GET /clima/coordenadas`: Obtiene el clima actual basado en latitud y longitud (`lat`, `lon` como query parameters).
 * `GET /clima/pronostico/{ciudad}`: Obtiene el pronóstico del clima de los próximos 5 días para una ciudad.
 
