@@ -42,7 +42,7 @@ jobs:
 
     - name: Ejecutar pruebas con Pytest
       env:
-        WEATHER_API_KEY: "dummy_key_for_tests"
+        WEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
         DB_HOST: "127.0.0.1"
         DB_USER: "root"
         DB_PASSWORD: "rootpassword"

@@ -36,3 +36,10 @@ def check_health():
 @app.get("/clima/{ciudad}", response_model=schemas.ClimaResponse, tags=["Gestión de Clima"])
 async def get_clima(ciudad: str):
     return await weather.get_current_weather(ciudad)
+
+@app.post("/favoritos", response_model=schemas.UbicacionFavorita, status_code=status.HTTP_201_CREATED, tags=["Gestión de Favoritos"])
+def create_favorito(favorito: schemas.UbicacionFavoritaCreate, db: Session = Depends(get_db)):
+    db_usuario = crud.get_usuario(db, usuario_id=favorito.usuario_id)
+    if not db_usuario:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    return crud.create_favorito(db=db, favorito=favorito)
