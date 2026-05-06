@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from src import models, schemas, crud
 from src.database import engine, get_db
+from src.services import weather
 
 try:
     models.Base.metadata.create_all(bind=engine)
@@ -24,3 +25,7 @@ def create_usuario(usuario: schemas.UsuarioCreate, db: Session = Depends(get_db)
 @app.get("/health", tags=["Sistema"])
 def check_health():
     return {"status": "ok", "message": "La API está funcionando correctamente"}
+
+@app.get("/clima/{ciudad}", response_model=schemas.ClimaResponse, tags=["Gestión de Clima"])
+async def get_clima(ciudad: str):
+    return await weather.get_current_weather(ciudad)

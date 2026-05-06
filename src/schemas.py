@@ -32,3 +32,11 @@ class Usuario(UsuarioBase):
     fecha_registro: datetime
     ubicaciones: List[UbicacionFavorita] = []
     model_config = ConfigDict(from_attributes=True)
+
+class ClimaResponse(BaseModel):
+    ciudad: str
+    temperatura: float
+    sensacion_termica: float
+    descripcion: str
+    humedad: int
+    velocidad_viento: float
