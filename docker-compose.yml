@@ -13,7 +13,7 @@ services:
       - DB_USER=root
       - DB_PASSWORD=rootpassword
       - DB_NAME=weather_db
-      - WEATHER_API_KEY=tu_api_key_aqui
+      - WEATHER_API_KEY=${WEATHER_API_KEY}
     depends_on:
       db:
         condition: service_healthy
