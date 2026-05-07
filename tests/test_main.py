@@ -1,3 +1,4 @@
+from unittest.mock import patch, AsyncMock
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -26,11 +27,21 @@ client = TestClient(app)
 def test_health_check():
     """
     Verifica que el endpoint de salud responde correctamente
-    con un código 200 y el mensaje esperado.
+    con el nuevo formato detallado.
     """
-    response = client.get("/health")
-    assert response.status_code == 200
-    assert response.json() == {"status": "ok", "message": "La API está funcionando correctamente"}
+    with patch("src.services.weather.check_api_status", new_callable=AsyncMock) as mock_weather:
+        # Configuramos el mock para que devuelva éxito
+        mock_weather.return_value = (True, "Conectado")
+        
+        response = client.get("/health")
+        assert response.status_code == 200
+        
+        data = response.json()
+        assert data["status"] == "ok"
+        assert "services" in data
+        assert data["services"]["api"] == "healthy"
+        assert data["services"]["database"] == "healthy"
+        assert data["services"]["weather_api"] == "healthy"
 
 def test_create_favorito():
     # Registrar un usuario primero
