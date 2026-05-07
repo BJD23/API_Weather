@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException, status
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 from src import models, schemas, crud
 from src.database import engine, get_db
@@ -30,8 +31,34 @@ def get_usuario(id_usuario: int, db: Session = Depends(get_db)):
     return db_usuario
 
 @app.get("/health", tags=["Sistema"])
-def check_health():
-    return {"status": "ok", "message": "La API está funcionando correctamente"}
+async def check_health(db: Session = Depends(get_db)):
+    health_status = {
+        "status": "ok",
+        "timestamp": status.HTTP_200_OK,  # Usando status code como placeholder o simplemente omitir
+        "services": {
+            "api": "healthy",
+            "database": "unknown",
+            "weather_api": "unknown"
+        }
+    }
+    
+    # Verificar Base de Datos
+    try:
+        db.execute(text("SELECT 1"))
+        health_status["services"]["database"] = "healthy"
+    except Exception as e:
+        health_status["status"] = "error"
+        health_status["services"]["database"] = f"unhealthy: {str(e)}"
+    
+    # Verificar Weather API
+    weather_ok, weather_msg = await weather.check_api_status()
+    if weather_ok:
+        health_status["services"]["weather_api"] = "healthy"
+    else:
+        health_status["status"] = "error" if health_status["status"] == "ok" else "multiple_errors"
+        health_status["services"]["weather_api"] = f"unhealthy: {weather_msg}"
+    
+    return health_status
 
 @app.get("/clima/{ciudad}", response_model=schemas.ClimaResponse, tags=["Gestión de Clima"])
 async def get_clima(ciudad: str):

@@ -37,3 +37,25 @@ async def get_current_weather(ciudad: str, units: str = "metric", lang: str = "e
             "humedad": data["main"]["humidity"],
             "velocidad_viento": data["wind"]["speed"]
         }
+
+async def check_api_status():
+    """
+    Verifica la conectividad y validez de la API Key con OpenWeatherMap.
+    """
+    url = "https://api.openweathermap.org/data/2.5/weather"
+    params = {
+        "q": "London",
+        "appid": settings.WEATHER_API_KEY
+    }
+    
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(url, params=params)
+            if response.status_code == 200:
+                return True, "Conectado"
+            elif response.status_code == 401:
+                return False, "API Key inválida o expirada"
+            else:
+                return False, f"Error del servicio externo: {response.status_code}"
+        except Exception as e:
+            return False, f"No se pudo contactar al proveedor: {str(e)}"
